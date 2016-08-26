@@ -33,15 +33,6 @@ RUN docker-php-source extract \
     && docker-php-ext-install redis \
     && docker-php-source delete
 
-# apcu
-RUN docker-php-source extract \
-    && apk add --no-cache --virtual .phpize-deps-configure $PHPIZE_DEPS \
-    && pecl install apc \
-    && docker-php-ext-enable apc \
-    && apk del .phpize-deps-configure \
-    && docker-php-source delete
-
-
 # xdebug
 RUN docker-php-source extract \
     && apk add --no-cache --virtual .phpize-deps-configure $PHPIZE_DEPS \
