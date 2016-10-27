@@ -85,7 +85,7 @@ statFile = ${HOME}/.cow/stat
 blockedFile = ${HOME}/.cow/blocked
 directFile = ${HOME}/.cow/direct
 EOF
-   echo cat $CONFIG_FILE
+
    cow -rc=$CONFIG_FILE ${DEBUG_FLAG}
 else
     exec "$@"
