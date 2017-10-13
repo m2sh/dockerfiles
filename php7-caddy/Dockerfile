@@ -13,4 +13,6 @@ WORKDIR /var/www/html
 
 RUN chown -R www-data:www-data /var/www/html
 
+EXPOSE 2015
+
 CMD ["/usr/bin/caddy", "--conf", "/etc/Caddyfile", "--log", "stdout"]
