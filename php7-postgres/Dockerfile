@@ -1,10 +1,10 @@
-FROM alpine:3.4 as postgres-client
+FROM alpine:3.4 as postgres-pg_dump
 
 RUN apk add --update --no-cache postgresql
 
 FROM m2sh/php7:7.1-alpine
 
-COPY --from=postgres-client /usr/bin/pg_dump /usr/bin/pg_dump
+COPY --from=postgres-pg_dump /usr/bin/pg_dump /usr/bin/pg_dump
 
 RUN apk add --update --no-cache postgresql-dev postgresql-client
 
