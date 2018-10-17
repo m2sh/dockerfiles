@@ -40,7 +40,7 @@ RUN \
 
 RUN \
     apk add --no-cache --virtual .build-deps curl \
-    && curl -fSL https://github.com/xtaci/kcptun/releases/download/v$KCP_VER/kcptun-linux-$ARCH-$KCP_VER.tar.gz | tar xz -C /usr/local/bin $ARCH \
+    && curl -fSL https://github.com/xtaci/kcptun/releases/download/v$KCP_VER/kcptun-linux-$ARCH-$KCP_VER.tar.gz | tar xz -C /usr/local/bin client_linux_$ARCH \
     && apk del .build-deps \
     && apk add --no-cache supervisor
 
