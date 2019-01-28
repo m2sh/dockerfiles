@@ -51,7 +51,8 @@ RUN \
 # Update ca-certificates for new CAs (ssl providers)
 RUN echo @edge http://nl.alpinelinux.org/alpine/edge/main >> /etc/apk/repositories && \
     apk add --no-cache \
-        ca-certificates@edge 
+        ca-certificates@edge \
+        curl@edge
 
 
 # Shadowsocks environment variables
@@ -66,7 +67,10 @@ ENV TIMEOUT 600
 ENV PLUGIN v2ray-plugin
 ENV V2RAY_HOST=example.com
 
-ENV PLUGIN_OPTS "tls;host=$V2RAY_HOST"
+ENV PLUGIN_OPTS "tls;host="
+
+HEALTHCHECK --start-period=5s \
+  CMD curl -x socks5h://localhost:$LOCAL_PORT -f https://docker.com/ || exit 1
 
 CMD ss-local -s "$SERVER_HOST" \
                      -p "$SERVER_PORT" \
@@ -76,7 +80,7 @@ CMD ss-local -s "$SERVER_HOST" \
                      -m "$ENCRYPT_METHOD" \
                      -t $TIMEOUT \
                      --plugin "$PLUGIN" \
-                     --plugin-opts "$PLUGIN_OPTS" \
+                     --plugin-opts "$PLUGIN_OPTS$V2RAY_HOST" \
                      -u \
                      --fast-open \
                      --no-delay
