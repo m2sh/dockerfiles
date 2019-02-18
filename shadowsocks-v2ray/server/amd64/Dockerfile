@@ -4,6 +4,7 @@ LABEL maintainer="Mohammad Shahgolzadeh <m2shm2sh@gmail.com>"
 
 ENV SS_VER=3.2.3
 ENV V2RAY_VER=8cea1a3
+ENV V2RAY_RELEASE=v1.0
 
 RUN set -ex \
     # Build environment setup
@@ -36,7 +37,7 @@ RUN set -ex \
 
 RUN \
     apk add --no-cache --virtual .build-deps curl \
-    && curl -fSL https://github.com/shadowsocks/v2ray-plugin/releases/download/v1.0/v2ray-plugin-linux-amd64-$V2RAY_VER.tar.gz | tar xz -C /usr/local/bin v2ray-plugin_linux_amd64 \
+    && curl -fSL https://github.com/shadowsocks/v2ray-plugin/releases/download/$V2RAY_RELEASE/v2ray-plugin-linux-amd64-$V2RAY_VER.tar.gz | tar xz -C /usr/local/bin v2ray-plugin_linux_amd64 \
     && mv /usr/local/bin/v2ray-plugin_linux_amd64 /usr/local/bin/v2ray-plugin \
     && RunDeps="$( \
         scanelf --needed --nobanner /usr/local/bin/v2ray-plugin \
@@ -45,37 +46,15 @@ RUN \
             | sort -u \
     )" \
     && apk add --no-cache --virtual .rundeps $RunDeps \
+    && apk add --update --no-cache bash \
     && apk del .build-deps
 
-# Shadowsocks environment variables
-ENV SERVER_HOST 0.0.0.0
 ENV SERVER_PORT 443
-ENV PASSWORD password
-ENV ENCRYPT_METHOD chacha20-ietf-poly1305
-ENV TIMEOUT 600
-ENV DNS_ADDR 8.8.8.8
-
-ENV PLUGIN v2ray-plugin
-
-ENV V2RAY_HOST example.com
-ENV V2RAY_CERT "/certs/fullchain.cer"
-ENV V2RAY_KEY "/certs/$V2RAY_HOST.key"
-
-ENV PLUGIN_OPTS "server;tls;host=$V2RAY_HOST;cert=$V2RAY_CERT;key=$V2RAY_KEY"
 
 EXPOSE $SERVER_PORT/tcp $SERVER_PORT/udp
 
+COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
+
+ENTRYPOINT [ "docker-entrypoint.sh" ]
 # Start shadowsocks-libev server
-CMD ss-server -s "$SERVER_HOST" \
-                     -p "$SERVER_PORT" \
-                     -k "$PASSWORD" \
-                     -m "$ENCRYPT_METHOD" \
-                     -t "$TIMEOUT" \
-                     -d "$DNS_ADDR" \
-                     --plugin "$PLUGIN" \
-                     --plugin-opts $PLUGIN_OPTS \
-                     -u \
-                     --mptcp \
-                     --reuse-port \
-                     --fast-open \
-                     --no-delay
+CMD [ "ss-server" ]
