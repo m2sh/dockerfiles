@@ -21,7 +21,6 @@ ENABLE_UDP=${ENABLE_UDP:-false}
 UDP_FLAG=""
 if [ "$ENABLE_UDP" == true ]
 then
-    set -x
     UDP_FLAG="-u"
 fi
 
