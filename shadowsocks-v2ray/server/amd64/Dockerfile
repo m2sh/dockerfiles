@@ -46,7 +46,7 @@ RUN \
             | sort -u \
     )" \
     && apk add --no-cache --virtual .rundeps $RunDeps \
-    && apk add --update --no-cache bash \
+    && apk add --update --no-cache bash linux-headers \
     && apk del .build-deps
 
 ENV SERVER_PORT 443
