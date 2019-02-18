@@ -57,9 +57,9 @@ ENV DNS_ADDR 8.8.8.8
 
 ENV PLUGIN v2ray-plugin
 
-ENV V2RAY_HOST=example.com
-ENV V2RAY_CERT="/certs/fullchain.cer"
-ENV V2RAY_KEY="/certs/$V2RAY_HOST.key"
+ENV V2RAY_HOST example.com
+ENV V2RAY_CERT "/certs/fullchain.cer"
+ENV V2RAY_KEY "/certs/$V2RAY_HOST.key"
 
 ENV PLUGIN_OPTS "server;tls;host=$V2RAY_HOST;cert=$V2RAY_CERT;key=$V2RAY_KEY"
 

@@ -65,7 +65,7 @@ ENV TIMEOUT 600
 
 # V2ray plugin environment variables
 ENV PLUGIN v2ray-plugin
-ENV V2RAY_HOST=example.com
+ENV V2RAY_HOST example.com
 
 ENV PLUGIN_OPTS "tls;host="
 
