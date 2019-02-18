@@ -25,8 +25,6 @@ then
     UDP_FLAG="-u"
 fi
 
-echo $UDP_FLAG;
-
 if [ "$1" == "ss-server" ]
 then
     ss-server -s "$SERVER_HOST" \
@@ -41,7 +39,7 @@ then
               --reuse-port \
               --fast-open \
               --no-delay \
-              $UDP_FLAG;
+              $UDP_FLAG
 else
     exec "$@"
 fi
