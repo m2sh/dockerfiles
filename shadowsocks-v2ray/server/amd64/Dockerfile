@@ -2,9 +2,9 @@ FROM alpine:latest
 
 LABEL maintainer="Mohammad Shahgolzadeh <m2shm2sh@gmail.com>"
 
-ENV SS_VER=3.2.3
-ENV V2RAY_VER=8cea1a3
-ENV V2RAY_RELEASE=v1.0
+ENV SS_VER=3.3.1
+ENV V2RAY_VER=v1.2.0
+ENV V2RAY_RELEASE=v1.2.0
 
 RUN set -ex \
     # Build environment setup
