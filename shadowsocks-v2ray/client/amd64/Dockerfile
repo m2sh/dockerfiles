@@ -2,8 +2,8 @@ FROM alpine:latest
 
 LABEL maintainer="Mohammad Shahgolzadeh <m2shm2sh@gmail.com>"
 
-ENV SS_VER=3.2.3
-ENV V2RAY_VER=8cea1a3
+ENV SS_VER=3.3.1
+ENV V2RAY_VER=v1.2.0
 
 RUN set -ex \
     # Build environment setup
@@ -37,7 +37,7 @@ RUN set -ex \
 
 RUN \
     apk add --no-cache --virtual .build-deps curl \
-    && curl -fSL https://github.com/shadowsocks/v2ray-plugin/releases/download/v1.0/v2ray-plugin-linux-amd64-$V2RAY_VER.tar.gz | tar xz -C /usr/local/bin v2ray-plugin_linux_amd64 \
+    && curl -fSL https://github.com/shadowsocks/v2ray-plugin/releases/download/$V2RAY_VER/v2ray-plugin-linux-amd64-$V2RAY_VER.tar.gz | tar xz -C /usr/local/bin v2ray-plugin_linux_amd64 \
     && mv /usr/local/bin/v2ray-plugin_linux_amd64 /usr/local/bin/v2ray-plugin \
     && RunDeps="$( \
         scanelf --needed --nobanner /usr/local/bin/v2ray-plugin \
