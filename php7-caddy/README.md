@@ -1,4 +1,4 @@
-### PHP 7.1 fpm alpine
+### PHP 7.3 fpm alpine
 ## with caddyserver installed
 
 [![Docker Pulls](https://img.shields.io/docker/pulls/m2sh/php7-caddy.svg?style=flat-square)](https://hub.docker.com/r/m2sh/php7-caddy/)

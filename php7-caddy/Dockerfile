@@ -1,4 +1,4 @@
-FROM m2sh/php7:7.1-alpine
+FROM m2sh/php7:7.3-alpine
 
 RUN curl --silent --show-error --fail --location \
     --header "Accept: application/tar+gzip, application/x-gzip, application/octet-stream" -o - \
