@@ -1,8 +1,8 @@
-FROM alpine:3.4 as postgres-pg_dump
+FROM alpine:3.10 as postgres-pg_dump
 
 RUN apk add --update --no-cache postgresql
 
-FROM m2sh/php7:7.1-alpine
+FROM m2sh/php7:7.3-alpine
 
 COPY --from=postgres-pg_dump /usr/bin/pg_dump /usr/bin/pg_dump
 
